@@ -3,22 +3,25 @@
 /*JavaScript工具集*/
 
 /*创建XMLHTTPRequest实例对象*/
-var request = false;
-try {
-  request = new XMLHttpRequest();
-} catch (trymicrosoft) {
+function createXHR(){
+  var request = false;
   try {
-    request = new ActiveXObject("Msxml2.XMLHTTP");
-  } catch (othermicrosoft) {
+    request = new XMLHttpRequest();
+  } catch (trymicrosoft) {
     try {
-      request = new ActiveXObject("Microsoft.XMLHTTP");
-    } catch (failed) {
-      request = false;
+      request = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (othermicrosoft) {
+      try {
+        request = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (failed) {
+        request = false;
+      }
     }
   }
-}
-if (!request)
-  alert("Error initializing XMLHttpRequest!");
+  if (!request)
+    alert("Error initializing XMLHttpRequest!");
+  return request;
+  }
 
 /*移动web中meta标签常规写法*/
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
