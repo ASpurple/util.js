@@ -80,3 +80,13 @@ Date.prototype.format = function(fmt) {
     return fmt; 
 }  
 //调用：var time1 = new Date().format("yyyy-MM-dd hh:mm:ss");
+
+//==========用js进行日期的加减==========================
+     function addDate(date,days){ 
+       var d=new Date(date); 
+       d.setDate(d.getDate()+days); 
+       var m=d.getMonth()+1; 
+       return d.getFullYear()+'-'+m+'-'+d.getDate(); 
+     } 
+//其中，date参数是要进行加减的日期，days参数是要加减的天数，如果往前算就传入负数，往后算就传入正数，如果是要进行月份的加减，
+//就调用setMonth()和getMonth（）就可以了，需要注意的是返回的月份是从0开始计算的，也就是说返回的月份要比实际月份少一个月，因此要相应的加上1。
