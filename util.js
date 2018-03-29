@@ -90,3 +90,50 @@ Date.prototype.format = function(fmt) {
      } 
 //其中，date参数是要进行加减的日期，days参数是要加减的天数，如果往前算就传入负数，往后算就传入正数，如果是要进行月份的加减，
 //就调用setMonth()和getMonth（）就可以了，需要注意的是返回的月份是从0开始计算的，也就是说返回的月份要比实际月份少一个月，因此要相应的加上1。
+
+//=============实现对象的深拷贝======================
+   function getType(obj){
+       //tostring会返回对应不同的标签的构造函数
+       var toString = Object.prototype.toString;
+       var map = {
+          '[object Boolean]'  : 'boolean', 
+          '[object Number]'   : 'number', 
+          '[object String]'   : 'string', 
+          '[object Function]' : 'function', 
+          '[object Array]'    : 'array', 
+          '[object Date]'     : 'date', 
+          '[object RegExp]'   : 'regExp', 
+          '[object Undefined]': 'undefined',
+          '[object Null]'     : 'null', 
+          '[object Object]'   : 'object'
+      };
+      if(obj instanceof Element) {
+           return 'element';
+      }
+      return map[toString.call(obj)];
+   }
+
+   function deepClone(data){
+       var type = getType(data);
+       var obj;
+       if(type === 'array'){
+           obj = [];
+       } else if(type === 'object'){
+           obj = {};
+       } else {
+           //不再具有下一层次
+           return data;
+       }
+       if(type === 'array'){
+           for(var i = 0, len = data.length; i < len; i++){
+               obj.push(deepClone(data[i]));
+           }
+       } else if(type === 'object'){
+           for(var key in data){
+               obj[key] = deepClone(data[key]);
+           }
+       }
+       return obj;
+   }
+//==========================END======================================
+
